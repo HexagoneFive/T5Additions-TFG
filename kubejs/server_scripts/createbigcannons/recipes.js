@@ -2,6 +2,10 @@
 "use strict"
 
 
+const createSequenciendAssemblyRecipe = (output, base, sequence, loops, transition_item)=>{
+
+}
+
 /**
  * @param {Internal.RecipesEventJS} event 
  */
@@ -9,10 +13,10 @@ const registerCBCRecipes = (event) => {
 
     // #region Remove Recipes
     event.remove([
-        { mod: "createbigcannons", output: '#createbigcannons:nugget_bronze'},
+        { mod: "createbigcannons", output: '#createbigcannons:nugget_bronze' },
         { mod: "createbigcannons", output: '#createbigcannons:nugget_cast_iron' },
         { mod: "createbigcannons", output: 'createbigcannons:steel_scrap' },
-        { mod: "createbigcannons", output: '#c:nuggets/nethersteel'},
+        { mod: "createbigcannons", output: '#c:nuggets/nethersteel' },
 
         { mod: "createbigcannons", output: '#createbigcannons:ingot_bronze' },
         { mod: "createbigcannons", output: '#createbigcannons:ingot_cast_iron' },
@@ -23,6 +27,8 @@ const registerCBCRecipes = (event) => {
         { mod: "createbigcannons", output: '#createbigcannons:block_cast_iron' },
         { mod: "createbigcannons", output: 'createbigcannons:steel_block' },
         { mod: "createbigcannons", output: 'createbigcannons:nethersteel_block' },
+
+        { mod: "createbigcannons", output: "createbigcannons:empty_powder_charge" },
 
         { input: 'createbigcannons:gunpowder_pinch' },
         { output: 'createbigcannons:gunpowder_pinch' },
@@ -44,49 +50,55 @@ const registerCBCRecipes = (event) => {
     //#endregion
 
     //#region Custom
-    const CANNON_CASTING = { // Preset
-        SHAPES: [
-            "createbigcannons:screw_breech", 
-            "createbigcannons:sliding_breech", 
-            "createbigcannons:autocannon_recoil_spring", 
-            "createbigcannons:autocannon_breech",
-            "createbigcannons:autocannon_barrel",
-            "createbigcannons:cannon_end",
-            "createbigcannons:very_small",
-            "createbigcannons:small",
-            "createbigcannons:medium",
-            "createbigcannons:large",
+    // Cannons Casting MAP was removed due to changes in data
+    // results: OutputItem_[], ingredient: InputItem_, sequence: Internal.RecipeJS_[], transitionalItem?: OutputItem_, loops?: number
+    event.recipes.create.sequenced_assembly(
+        [
+            Item.of('createbigcannons:big_cartridge', '{Power:0}')
+        ],
+            Item.of('createbigcannons:big_cartridge_sheet'),
+        [
+            {
+                "type": "create:pressing",
+                "ingredients": [
+                    Item.of('createbigcannons:big_cartridge_sheet')
+                ],
+                "results": [
+                    Item.of('createbigcannons:partially_formed_big_cartridge')
+                ]
+            }
+        ],
+        Item.of('createbigcannons:partially_formed_big_cartridge'),
+        5
+    );
 
+    event.custom({
+        "type": "create:sequenced_assembly",
+        "ingredient": {
+            "item": 'createbigcannons:big_cartridge_sheet'
+        },
+        "loops": 3,
+        "results": [
+            Item.of('createbigcannons:big_cartridge', '{Power:0}')
         ],
-        FLUID_TAG: [
-            "forge:iron", 
-            "forge:bronze", 
-            "forge:steel", 
-            "forge:black_steel"
+        "sequence": [
+            {
+                "type": "create:pressing",
+                "ingredients": [
+                    {
+                        "item": "createbigcannons:partially_formed_big_cartridge"
+                    }
+                ],
+                "results": [
+                    {
+                        "item": "createbigcannons:partially_formed_big_cartridge"
+                    }
+                ]
+            }
         ],
-        FLUID_TAG_TITMAP: { // Fluid tag (to item map = TITMAP) 
-            "forge:iron": "cast_iron",
-            "forge:bronze": "bronze",
-            "forge:steel": "steel",
-            "forge:black_steel": "nethersteel"
+        "transitionalItem": {
+            "item": "createbigcannons:partially_formed_big_cartridge"
         }
-    }
-
-    CANNON_CASTING.FLUID_TAG.forEach(ftag => {
-        CANNON_CASTING.SHAPES.forEach(shape => {
-            let prefix = "unbored_"
-            let sufix = "_" + shape.split(":")[1]
-            /* event.custom({
-                "type": "createbigcannons:cannon_casting",
-                "cast_shape": shape,
-                "fluid": {
-                    "amount": 1,
-                    "fluidTag": ftag
-                },
-                "result": "createbigcannons:" + prefix + CANNON_CASTING.FLUID_TAG_TITMAP[ftag] + sufix
-            }).id("t5a:cbc/"+ prefix + CANNON_CASTING.FLUID_TAG_TITMAP[ftag] + sufix); */
-        });
-        
     });
 
     // #endregion
@@ -95,15 +107,23 @@ const registerCBCRecipes = (event) => {
     // #region Shaped Crafting
     event.shaped('2x createbigcannons:casting_sand', [
         'ABA',
-		'CDC',
-		'ABA'
-	], {
-		A: '#forge:powders/graphite',
-		B: '#forge:dusts/kaolinite',
-		C: '#forge:sand',
+        'CDC',
+        'ABA'
+    ], {
+        A: '#forge:powders/graphite',
+        B: '#forge:dusts/kaolinite',
+        C: '#forge:sand',
         D: '#forge:ingots/clay'
-	}).id('t5a:cbc/castingsand')
+    }).id('t5a:cbc/castingsand')
 
+    event.shaped('2x createbigcannons:empty_powder_charge', [
+        '   ',
+        ' A ',
+        ' B '
+    ], {
+        B: '#forge:cloth',
+        A: '#forge:string'
+    }).id('t5a:cbc/empty_powder_charge')
     // #endregion
 
     // #region Pressing/Forge Hammer
@@ -118,13 +138,13 @@ const registerCBCRecipes = (event) => {
         .itemInputs('3x #forge:gunpowder')
         .itemOutputs('createbigcannons:packed_gunpowder')
         .EUt(GTValues.VA[GTValues.LV])
-		.duration(30)
+        .duration(30)
 
-    
+
     // Packed Guncotton
     event.recipes.greate
         .pressing(
-            ['1x createbigcannons:packed_guncotton'], 
+            ['1x createbigcannons:packed_guncotton'],
             ['3x createbigcannons:guncotton']
         )
         .circuitNumber(1)
@@ -135,7 +155,7 @@ const registerCBCRecipes = (event) => {
         .itemInputs('3x createbigcannons:guncotton')
         .itemOutputs('createbigcannons:packed_guncotton')
         .EUt(GTValues.VA[GTValues.MV])
-		.duration(20)
+        .duration(20)
     // #endregion
 
 
@@ -149,5 +169,13 @@ const registerCBCRecipes = (event) => {
         .itemOutputs('3x createbigcannons:guncotton')
         .EUt(GTValues.VA[GTValues.MV])
         .duration(50)
+    // #endregion
+    // #region Sequencied
+    
+    event.recipes.createSequencedAssembly([
+        Item.of('createbigcannons:big_cartridge', 1, '{Power:0}'),
+    ], 'createbigcannons:big_cartridge_sheet', [
+        event.recipes.createPressing('createbigcannons:partially_formed_big_cartridge', ['createbigcannons:partially_formed_big_cartridge']),
+    ]).transitionalItem('createbigcannons:partially_formed_big_cartridge').loops(4).id('t5a:cbc/sequenced_assembly/big_cartridge')
     // #endregion
 }

@@ -214,4 +214,6 @@ sync.*
 # Custom
 deploy.sh
 sync.js
+probe/
+jsconfig.json
 >>>>>>> master
