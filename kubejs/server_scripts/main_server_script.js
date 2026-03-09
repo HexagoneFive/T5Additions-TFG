@@ -58,11 +58,13 @@ ServerEvents.tags('item', event => {
 	registerTFCTextileItemTags(event)
 	registerTFGItemTags(event)
 	registerTFGNuclearItemTags(event)
-    	registerTFCLunchboxItemTags(event)
+    registerTFCLunchboxItemTags(event)
 	registerVintageImprovementsItemTags(event)
 	registerWABItemTags(event)
-	// T5A
+
+	// #region T5A
 	registerCreateBigCannonsItemTags(event)
+	// endregion
 })
 
 /**
@@ -303,8 +305,10 @@ ServerEvents.recipes(event => {
 	registerWABRecipes(event)
 	registerTFCScrapingKnivesRecipes(event)
 	registerTFGCircuitBoardsRecipes(event)
-	// T5A
+	
+	// #region T5A
 	registerCBCRecipes(event)
+	// endregion
 })
 
 TaCZServerEvents.gunIndexLoad((event) => {
