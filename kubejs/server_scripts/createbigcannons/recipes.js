@@ -5,7 +5,7 @@
 /**
  * @param {Internal.RecipesEventJS} event 
  */
-const registerCreateBigCannonsRecipes = (event) => {
+const registerCBCRecipes = (event) => {
 
     // #region Remove Recipes
     event.remove([
