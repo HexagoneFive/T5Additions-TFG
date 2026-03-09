@@ -52,25 +52,6 @@ const registerCBCRecipes = (event) => {
     //#region Custom
     // Cannons Casting MAP was removed due to changes in data
     // results: OutputItem_[], ingredient: InputItem_, sequence: Internal.RecipeJS_[], transitionalItem?: OutputItem_, loops?: number
-    event.recipes.create.sequenced_assembly(
-        [
-            Item.of('createbigcannons:big_cartridge', '{Power:0}')
-        ],
-            Item.of('createbigcannons:big_cartridge_sheet'),
-        [
-            {
-                "type": "create:pressing",
-                "ingredients": {
-                    "item": 'createbigcannons:big_cartridge_sheet'
-                },
-                "results": {
-                    "item":'createbigcannons:partially_formed_big_cartridge'
-                }
-            }
-        ],
-        'createbigcannons:partially_formed_big_cartridge',
-        5
-    );
 
     event.custom({
         "type": "create:sequenced_assembly",
