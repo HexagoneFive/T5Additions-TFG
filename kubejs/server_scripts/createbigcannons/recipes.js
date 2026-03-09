@@ -60,15 +60,15 @@ const registerCBCRecipes = (event) => {
         [
             {
                 "type": "create:pressing",
-                "ingredients": [
-                    Item.of('createbigcannons:big_cartridge_sheet')
-                ],
-                "results": [
-                    Item.of('createbigcannons:partially_formed_big_cartridge')
-                ]
+                "ingredients": {
+                    "item": 'createbigcannons:big_cartridge_sheet'
+                },
+                "results": {
+                    "item":'createbigcannons:partially_formed_big_cartridge'
+                }
             }
         ],
-        Item.of('createbigcannons:partially_formed_big_cartridge'),
+        'createbigcannons:partially_formed_big_cartridge',
         5
     );
 
