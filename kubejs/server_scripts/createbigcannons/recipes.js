@@ -37,6 +37,8 @@ const registerCBCRecipes = (event) => {
 
         { type: 'createbigcannons:melting' },
         { id: 'createbigcannons/mixing/guncotton' },
+
+        { id: "createbigcannons:sequenced_assembly/pressing_autocannon_cartridge", output: 'createbigcannons:big_cartridge'}
     ]);
     // #endregion
 
@@ -53,7 +55,7 @@ const registerCBCRecipes = (event) => {
     // Cannons Casting MAP was removed due to changes in data
     // results: OutputItem_[], ingredient: InputItem_, sequence: Internal.RecipeJS_[], transitionalItem?: OutputItem_, loops?: number
 
-    event.custom({
+    /* event.custom({ // CURRENTLY USING ANOTHER METHOD
         "type": "create:sequenced_assembly",
         "ingredient": {
             "item": 'createbigcannons:big_cartridge_sheet'
@@ -80,7 +82,7 @@ const registerCBCRecipes = (event) => {
         "transitionalItem": {
             "item": "createbigcannons:partially_formed_big_cartridge"
         }
-    });
+    }); */
 
     // #endregion
 
@@ -151,8 +153,8 @@ const registerCBCRecipes = (event) => {
         .EUt(GTValues.VA[GTValues.MV])
         .duration(50)
     // #endregion
+
     // #region Sequencied
-    
     event.recipes.createSequencedAssembly([
         Item.of('createbigcannons:big_cartridge', 1, '{Power:0}'),
     ], 'createbigcannons:big_cartridge_sheet', [
