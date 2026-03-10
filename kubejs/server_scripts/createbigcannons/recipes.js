@@ -36,10 +36,10 @@ const registerCBCRecipes = (event) => {
         { mod: "createbigcannons", output: '#createbigcannons:guncotton' },
 
         { type: 'createbigcannons:melting' },
-        { id: 'createbigcannons/mixing/guncotton' },
-
-        { id: "createbigcannons:sequenced_assembly/pressing_autocannon_cartridge", output: 'createbigcannons:big_cartridge'}
+        { id: 'createbigcannons/mixing/guncotton' }
     ]);
+    event.remove({id: 'createbigcannons:sequenced_assembly/pressing_big_cartridge'})
+
     // #endregion
 
     //#region Replace Fluids
