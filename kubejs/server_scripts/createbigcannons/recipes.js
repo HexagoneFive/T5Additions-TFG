@@ -156,9 +156,13 @@ const registerCBCRecipes = (event) => {
 
     // #region Sequencied
     event.recipes.createSequencedAssembly([
-        Item.of('createbigcannons:big_cartridge', 1, '{Power:0}'),
-    ], 'createbigcannons:big_cartridge_sheet', [
-        event.recipes.createPressing('createbigcannons:partially_formed_big_cartridge', ['createbigcannons:partially_formed_big_cartridge']),
-    ]).transitionalItem('createbigcannons:partially_formed_big_cartridge').loops(5).id('t5a:cbc/sequenced_assembly/big_cartridge')
+            Item.of('createbigcannons:big_cartridge', '{Power:0}'),
+        ], 'createbigcannons:big_cartridge_sheet', [
+            //event.recipes.createPressing('createbigcannons:partially_formed_big_cartridge', ['createbigcannons:partially_formed_big_cartridge']),
+            event.recipes.greate.pressing('createbigcannons:partially_formed_big_cartridge', ['createbigcannons:partially_formed_big_cartridge'])
+        ])
+        .transitionalItem('createbigcannons:partially_formed_big_cartridge')
+        .loops(4)
+        .id('t5a:cbc/sequenced_assembly/big_cartridge')
     // #endregion
 }
