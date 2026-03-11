@@ -36,9 +36,12 @@ const registerCBCRecipes = (event) => {
         { mod: "createbigcannons", output: '#createbigcannons:guncotton' },
 
         { type: 'createbigcannons:melting' },
-        { id: 'createbigcannons/mixing/guncotton' }
+        
     ]);
-    event.remove({id: 'createbigcannons:sequenced_assembly/pressing_big_cartridge'})
+    event.remove([
+        { id: 'createbigcannons:sequenced_assembly/pressing_big_cartridge'},
+        { id: 'createbigcannons:mixing/guncotton' }
+    ])
 
     // #endregion
 
@@ -162,7 +165,7 @@ const registerCBCRecipes = (event) => {
             event.recipes.greate.pressing('createbigcannons:partially_formed_big_cartridge', ['createbigcannons:partially_formed_big_cartridge'])
         ])
         .transitionalItem('createbigcannons:partially_formed_big_cartridge')
-        .loops(4)
+        .loops(5)
         .id('t5a:cbc/sequenced_assembly/big_cartridge')
     // #endregion
 }
