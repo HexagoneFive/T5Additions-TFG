@@ -303,6 +303,7 @@ const registerCBCRecipes = (event) => {
         .itemOutputs("t5a:calcium_carbide")
         .EUt(GTValues.VA[GTValues.HV])
         .duration(200)
+        .blastFurnaceTemp(2270)
         .circuit(5)
     // #endregion
 }
