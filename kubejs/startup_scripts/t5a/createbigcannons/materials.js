@@ -15,7 +15,7 @@ const registerCBCMaterials = (event)=>{
         .components('1x calcium', '2x carbon', '2x nitrogen')
         .flags(GTMaterialFlags.DECOMPOSITION_BY_ELECTROLYZING)
         .color(0xFFFFFF)
-        .secondaryColor(0x464646)
+        .secondaryColor(0x2D40FF)
         .formula("CaCN2")
 
     event.create("t5a:ammonium_nitrate")

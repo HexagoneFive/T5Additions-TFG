@@ -306,4 +306,14 @@ const registerCBCRecipes = (event) => {
         .blastFurnaceTemp(2270)
         .circuit(5)
     // #endregion
+
+    // #region Assembler
+    event.recipes.gtceu.assembler('t5a:cbc/assembler/big_cartridge')
+        .itemInputs('createbigcannons:big_cartridge_sheet')
+        .itemOutputs(Item.of('createbigcannons:big_cartridge', '{Power:0}'))
+        .EUt(GTValues.VA[GTValues.LV])
+        .duration(200)
+        .circuit(5)
+
+    // #endregion
 }
