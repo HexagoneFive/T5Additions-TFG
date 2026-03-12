@@ -29,6 +29,9 @@ const registerCBCRecipes = (event) => {
         { mod: "createbigcannons", output: 'createbigcannons:nethersteel_block' },
 
         { mod: "createbigcannons", output: "createbigcannons:empty_powder_charge" },
+        { mod: "createbigcannons", output: 'createbigcannons:nitropowder' },
+        { mod: "createbigcannons", output: 'createbigcannons:hardened_nitro' },
+        { mod: "createbigcannons", output: 'createbigcannons:congealed_nitro' },
 
         { input: 'createbigcannons:gunpowder_pinch' },
         { output: 'createbigcannons:gunpowder_pinch' },
@@ -115,12 +118,10 @@ const registerCBCRecipes = (event) => {
     // #region Pressing/Forge Hammer
 
     // Packed Gunpowder
-    event.recipes.greate
-        .pressing('createbigcannons:packed_gunpowder', '3x #forge:gunpowder')
+    event.recipes.greate.pressing('createbigcannons:packed_gunpowder', '3x #forge:gunpowder')
         .recipeTier(1)
         .id("t5a:cbc/pressing/packed_gunpowder")
-    event.recipes.gtceu
-        .forge_hammer("t5a:cbc/forge_hammer/packed_gunpowder")
+    event.recipes.gtceu.forge_hammer("t5a:cbc/forge_hammer/packed_gunpowder")
         .itemInputs('3x #forge:gunpowder')
         .itemOutputs('createbigcannons:packed_gunpowder')
         .EUt(GTValues.VA[GTValues.LV])
@@ -128,16 +129,14 @@ const registerCBCRecipes = (event) => {
 
 
     // Packed Guncotton
-    event.recipes.greate
-        .pressing(
+    event.recipes.greate.pressing(
             ['1x createbigcannons:packed_guncotton'],
             ['3x createbigcannons:guncotton']
         )
         .circuitNumber(1)
         .recipeTier(2)
         .id("t5a:cbc/pressing/packed_guncotton")
-    event.recipes.gtceu
-        .forge_hammer("t5a:cbc/forge_hammer/packed_guncotton")
+    event.recipes.gtceu.forge_hammer("t5a:cbc/forge_hammer/packed_guncotton")
         .itemInputs('3x createbigcannons:guncotton')
         .itemOutputs('createbigcannons:packed_guncotton')
         .EUt(GTValues.VA[GTValues.MV])
@@ -148,8 +147,7 @@ const registerCBCRecipes = (event) => {
     // #region Mixing
 
     // Guncotton
-    event.recipes.gtceu
-        .mixer("t5a:cbc/mixer/guncotton")
+    event.recipes.gtceu.mixer("t5a:cbc/mixer/guncotton")
         .itemInputs('1x #forge:paper', '2x tfg:nitrocellulose')
         .inputFluids(Fluid.of('gtceu:distilled_water', 100))
         .itemOutputs('3x createbigcannons:guncotton')
@@ -167,5 +165,144 @@ const registerCBCRecipes = (event) => {
         .transitionalItem('createbigcannons:partially_formed_big_cartridge')
         .loops(5)
         .id('t5a:cbc/sequenced_assembly/big_cartridge')
+    // #endregion
+
+
+    //("t5a:calcium_carbide") ok
+    //("t5a:calcium_cyanamide") ok
+    //("t5a:ammonium_nitrate") ok
+    //("t5a:dicyandiamide") ok
+    //("t5a:guanidine_nitrate") ok
+    //("t5a:nitroguanidine") ok
+    // nitro ok
+
+    // #region LChem Reactor
+    event.recipes.gtceu.large_chemical_reactor("t5a:cbc/large_chemical_reactor/calcium_cyanamide")
+        .itemInputs("t5a:calcium_carbide")
+        .inputFluids(Fluid.of("gtceu:nitrogen", 1000))
+        .itemOutputs("t5a:calcium_cyanamide", 'gtceu:carbon_dust')
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(800)
+        .circuit(5)
+    
+    event.recipes.gtceu.large_chemical_reactor("t5a:cbc/large_chemical_reactor/acetylene")
+        .itemInputs("t5a:calcium_carbide")
+        .inputFluids(Fluid.of('gtceu:distilled_water', 2000))
+        .outputFluids(Fluid.of('tfg:acetylene', 1000))
+        .itemOutputs("gtceu:calcium_hydroxide_dust")
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(100)
+        .circuit(5)
+
+    event.recipes.gtceu.large_chemical_reactor("t5a:cbc/large_chemical_reactor/ammonium_nitrate")
+        .inputFluids(Fluid.of('gtceu:ammonia', 1000), Fluid.of('gtceu:nitric_acid', 1000))
+        .itemOutputs("t5a:ammonium_nitrate")
+        .EUt(GTValues.VA[GTValues.HV])
+        .duration(80)
+        .circuit(5)
+
+    event.recipes.gtceu.large_chemical_reactor("t5a:cbc/large_chemical_reactor/dicyandiamide")
+        .itemInputs("2x t5a:calcium_cyanamide")
+        .notConsumable('#forge:dusts/calcium_hydroxide')
+        .inputFluids(Fluid.of('gtceu:distilled_water', 1000))
+        .outputFluids(Fluid.of('gtceu:distilled_water', 1000))
+        .itemOutputs("t5a:dicyandiamide")
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(120)
+        .circuit(5)
+
+    event.recipes.gtceu.large_chemical_reactor("t5a:cbc/large_chemical_reactor/guanidine_nitrate")
+        .itemInputs("t5a:dicyandiamide", "2x t5a:ammonium_nitrate")
+        .itemOutputs("t5a:guanidine_nitrate")
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(60)
+        .circuit(5)
+
+    event.recipes.gtceu.large_chemical_reactor("t5a:cbc/large_chemical_reactor/nitroguanidine")
+        .itemInputs("t5a:guanidine_nitrate")
+        .inputFluids(Fluid.of('gtceu:sulfuric_acid', 1000))
+        .outputFluids(Fluid.of('gtceu:sulfuric_acid', 1000))
+        .itemOutputs("t5a:nitroguanidine")
+        .EUt(GTValues.VA[GTValues.HV])
+        .duration(70)
+        .circuit(5)
+
+    event.recipes.gtceu.large_chemical_reactor("t5a:cbc/large_chemical_reactor/nitropowder")
+        .itemInputs("5x t5a:nitroguanidine", '3x tfg:nitrocellulose')
+        .inputFluids(Fluid.of('gtceu:glyceryl_trinitrate', 2000))
+        .itemOutputs('10x createbigcannons:nitropowder')
+        .EUt(GTValues.VA[GTValues.HV])
+        .duration(400)
+        .circuit(5)
+    // #endregion 
+
+    // #region Chem Reactor
+    event.recipes.gtceu.chemical_reactor("t5a:cbc/chemical_reactor/calcium_cyanamide")
+        .itemInputs("t5a:calcium_carbide")
+        .inputFluids(Fluid.of("gtceu:nitrogen", 1000))
+        .itemOutputs("t5a:calcium_cyanamide", 'gtceu:carbon_dust')
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(800)
+        .circuit(5)
+
+    event.recipes.gtceu.chemical_reactor("t5a:cbc/chemical_reactor/acetylene")
+        .itemInputs("t5a:calcium_carbide")
+        .inputFluids(Fluid.of('gtceu:distilled_water', 2000))
+        .outputFluids(Fluid.of('tfg:acetylene', 1000))
+        .itemOutputs("gtceu:calcium_hydroxide_dust")
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(100)
+        .circuit(5)
+
+    event.recipes.gtceu.chemical_reactor("t5a:cbc/chemical_reactor/ammonium_nitrate")
+        .inputFluids(Fluid.of('gtceu:ammonia', 1000), Fluid.of('gtceu:nitric_acid', 1000))
+        .itemOutputs("t5a:ammonium_nitrate")
+        .EUt(GTValues.VA[GTValues.HV])
+        .duration(80)
+        .circuit(5)
+
+    event.recipes.gtceu.chemical_reactor("t5a:cbc/chemical_reactor/dicyandiamide")
+        .itemInputs("2x t5a:calcium_cyanamide")
+        .notConsumable('#forge:dusts/calcium_hydroxide')
+        .inputFluids(Fluid.of('gtceu:distilled_water', 1000))
+        .outputFluids(Fluid.of('gtceu:distilled_water', 1000))
+        .itemOutputs("t5a:dicyandiamide")
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(120)
+        .circuit(5)
+
+    event.recipes.gtceu.chemical_reactor("t5a:cbc/chemical_reactor/guanidine_nitrate")
+        .itemInputs("t5a:dicyandiamide", "2x t5a:ammonium_nitrate")
+        .itemOutputs("t5a:guanidine_nitrate")
+        .EUt(GTValues.VA[GTValues.MV])
+        .duration(60)
+        .circuit(5)
+    
+    event.recipes.gtceu.chemical_reactor("t5a:cbc/chemical_reactor/nitroguanidine")
+        .itemInputs("t5a:guanidine_nitrate")
+        .inputFluids(Fluid.of('gtceu:sulfuric_acid', 1000))
+        .outputFluids(Fluid.of('gtceu:sulfuric_acid', 1000))
+        .itemOutputs("t5a:nitroguanidine")
+        .EUt(GTValues.VA[GTValues.HV])
+        .duration(70)
+        .circuit(5)
+
+    event.recipes.gtceu.chemical_reactor("t5a:cbc/chemical_reactor/nitropowder")
+        .itemInputs("5x t5a:nitroguanidine", '3x tfg:nitrocellulose')
+        .inputFluids(Fluid.of('gtceu:glyceryl_trinitrate', 2000))
+        .itemOutputs('10x createbigcannons:nitropowder')
+        .EUt(GTValues.VA[GTValues.HV])
+        .duration(400)
+        .circuit(5)
+    // #endregion
+
+    // #region EBF
+    event.recipes.gtceu.electric_blast_furnace("t5a:cbc/electric_blast_furnace/calcium_carbide")
+        .itemInputs('#forge:dusts/quicklime', '3x #forge:dusts/carbon')
+        .outputFluids(Fluid.of('gtceu:carbon_monoxide', 1000))
+        .itemOutputs("t5a:calcium_carbide")
+        .EUt(GTValues.VA[GTValues.HV])
+        .duration(200)
+        .circuit(5)
     // #endregion
 }

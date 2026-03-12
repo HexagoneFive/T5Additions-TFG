@@ -15,7 +15,9 @@ const CBC_DISABLED_ITEMS = [
     'createbigcannons:nethersteel_nugget',
     'createbigcannons:steel_scrap',
     'createbigcannons:bronze_scrap',
-    'createbigcannons:gunpowder_pinch'
+    'createbigcannons:gunpowder_pinch',
+    'createbigcannons:hardened_nitro',
+    'createbigcannons:congealed_nitro'
 ]
 const registerCreateBigCannonsItemTags = (event) => {
     
