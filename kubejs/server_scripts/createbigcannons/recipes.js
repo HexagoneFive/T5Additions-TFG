@@ -1,11 +1,6 @@
 // priority: 0
 "use strict"
 
-
-const createSequenciendAssemblyRecipe = (output, base, sequence, loops, transition_item)=>{
-
-}
-
 /**
  * @param {Internal.RecipesEventJS} event 
  */
@@ -43,6 +38,7 @@ const registerCBCRecipes = (event) => {
     ]);
     event.remove([
         { id: 'createbigcannons:sequenced_assembly/pressing_big_cartridge'},
+        { id: 'createbigcannons:sequenced_assembly/pressing_autocannon_cartridge'},
         { id: 'createbigcannons:mixing/guncotton' }
     ])
 
@@ -52,9 +48,17 @@ const registerCBCRecipes = (event) => {
     //#endregion
 
     //#region Replace Items/Blocks
-    event.replaceInput({}, '#createbigcannons:nugget_cast_iron', '#forge:nuggets/iron');
-    event.replaceInput({}, '#createbigcannons:ingot_cast_iron', '#forge:ingots/iron');
-    event.replaceInput({}, '#createbigcannons:block_cast_iron', '#forge:storage_blocks/iron');
+    event.replaceInput({}, 'createbigcannons:nugget_cast_iron', '#forge:nuggets/iron');
+    event.replaceInput({}, 'createbigcannons:ingot_cast_iron', '#forge:ingots/iron');
+    event.replaceInput({}, 'createbigcannons:block_cast_iron', '#forge:storage_blocks/iron');
+    
+    event.replaceInput({}, 'createbigcannons:nethersteel_nugget', '#forge:nuggets/black_steel');
+    event.replaceInput({}, 'createbigcannons:nethersteel_ingot', '#forge:ingots/black_steel');
+    event.replaceInput({}, 'createbigcannons:nethersteel_block', '#forge:storage_blocks/black_steel');
+
+    event.replaceInput({}, 'createbigcannons:bronze_scrap', '#forge:nuggets/bronze');
+    event.replaceInput({}, 'createbigcannons:bronze_ingot', '#forge:ingots/bronze');
+    event.replaceInput({}, 'createbigcannons:bronze_block', '#forge:storage_blocks/bronze');
     //#endregion
 
     //#region Custom
@@ -92,6 +96,18 @@ const registerCBCRecipes = (event) => {
 
     // #endregion
 
+    const createMouldRecipe = (id, output, recipe, pattern)=>{
+        event.shaped(output, [
+            'MKL',
+            recipe[0],
+            recipe[1]
+        ], {
+            M: '#forge:tools/hammers',
+            K: '#tfc:chisels',
+            L: '#forge:tools/saws',
+            ...pattern,
+        }).id(id)
+    }
 
     // #region Shaped Crafting
     event.shaped('2x createbigcannons:casting_sand', [
@@ -113,6 +129,72 @@ const registerCBCRecipes = (event) => {
         B: '#forge:cloth',
         A: '#forge:string'
     }).id('t5a:cbc/empty_powder_charge')
+
+    createMouldRecipe('t5a:cbc/autocannon_recoil_spring_cast_mould',
+        'createbigcannons:autocannon_recoil_spring_cast_mould',
+        ['  A', '   '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/autocannon_barrel_cast_mould',
+        'createbigcannons:autocannon_barrel_cast_mould',
+        [' A ', '   '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/autocannon_breech_cast_mould',
+        'createbigcannons:autocannon_breech_cast_mould',
+        ['A  ', '   '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/screw_breech_cast_mould',
+        'createbigcannons:screw_breech_cast_mould',
+        ['AA ', '   '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/very_small_cast_mould',
+        'createbigcannons:very_small_cast_mould',
+        ['A  ', 'A  '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/small_cast_mould',
+        'createbigcannons:small_cast_mould',
+        ['AA ', 'AA '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/medium_cast_mould',
+        'createbigcannons:medium_cast_mould',
+        [' AA', ' AA'],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/large_cast_mould',
+        'createbigcannons:large_cast_mould',
+        ['AAA', 'AA '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/very_large_cast_mould',
+        'createbigcannons:very_large_cast_mould',
+        ['AAA', 'AAA'],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/cannon_end_cast_mould',
+        'createbigcannons:cannon_end_cast_mould',
+        ['AAA', ' A '],
+        {A: '#tfg:hardwood'}
+    )
+
+    createMouldRecipe('t5a:cbc/sliding_breech_cast_mould',
+        'createbigcannons:sliding_breech_cast_mould',
+        ['A A', 'AAA'],
+        {A: '#tfg:hardwood'}
+    )
     // #endregion
 
     // #region Pressing/Forge Hammer
@@ -165,6 +247,15 @@ const registerCBCRecipes = (event) => {
         .transitionalItem('createbigcannons:partially_formed_big_cartridge')
         .loops(5)
         .id('t5a:cbc/sequenced_assembly/big_cartridge')
+
+    event.recipes.createSequencedAssembly([
+            Item.of('createbigcannons:empty_autocannon_cartridge'),
+        ], 'createbigcannons:autocannon_cartridge_sheet', [
+            event.recipes.greate.pressing('createbigcannons:partially_formed_autocannon_cartridge', ['createbigcannons:partially_formed_autocannon_cartridge'])
+        ])
+        .transitionalItem('createbigcannons:partially_formed_autocannon_cartridge')
+        .loops(6)
+        .id('t5a:cbc/sequenced_assembly/empty_autocannon_cartridge')
     // #endregion
 
 
@@ -315,5 +406,32 @@ const registerCBCRecipes = (event) => {
         .duration(200)
         .circuit(5)
 
+    event.recipes.gtceu.assembler('t5a:cbc/assembler/empty_autocannon_cartridge')
+        .itemInputs('createbigcannons:autocannon_cartridge_sheet')
+        .itemOutputs(Item.of('createbigcannons:empty_autocannon_cartridge'))
+        .EUt(GTValues.VA[GTValues.LV])
+        .duration(200)
+        .circuit(5)
+
+    event.recipes.gtceu.assembler('t5a:cbc/assembler/bronze_sliding_breech')
+        .itemInputs('#forge:shafts', 'createbigcannons:bronze_sliding_breechblock')
+        .itemOutputs(Item.of('createbigcannons:bronze_sliding_breech'))
+        .EUt(GTValues.VA[GTValues.LV])
+        .duration(100)
+        .circuit(5)
+
+    event.recipes.gtceu.assembler('t5a:cbc/assembler/steel_sliding_breech')
+        .itemInputs('#forge:shafts', 'createbigcannons:steel_sliding_breechblock')
+        .itemOutputs(Item.of('createbigcannons:steel_sliding_breech'))
+        .EUt(GTValues.VA[GTValues.LV])
+        .duration(100)
+        .circuit(5)
+
+    event.recipes.gtceu.assembler('t5a:cbc/assembler/cast_iron_sliding_breech')
+        .itemInputs('#forge:shafts', 'createbigcannons:cast_iron_sliding_breechblock')
+        .itemOutputs(Item.of('createbigcannons:cast_iron_sliding_breech'))
+        .EUt(GTValues.VA[GTValues.LV])
+        .duration(100)
+        .circuit(5)
     // #endregion
 }
