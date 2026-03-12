@@ -3,6 +3,9 @@
 
 StartupEvents.registry('item', event => {
     registerTFGItems(event)
+	// #region T5A
+	registerT5AItems(event)
+	// #endregion T5A
 })
 
 StartupEvents.registry('block', event => {

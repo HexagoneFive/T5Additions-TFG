@@ -6,5 +6,5 @@
  * @param {Registry.Item} event 
  */
 const registerT5AItems = (event)=>{
-    
+    registerCBCItems(event)
 }
