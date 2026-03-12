@@ -7,4 +7,5 @@
  */
 const registerT5AItems = (event)=>{
     registerCBCItems(event)
+    registerCBBItems(event)
 }

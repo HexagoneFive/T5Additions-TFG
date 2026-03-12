@@ -55,6 +55,9 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
 	registerCreateMaterials(event)
 	registerGreateMaterials(event)
 	registerTFGMaterials(event)
+	// #region T5A
+	registerT5AMaterials(event)
+	// #endregion
 })
 
 GTCEuStartupEvents.registry('gtceu:material_icon_set', event => {
