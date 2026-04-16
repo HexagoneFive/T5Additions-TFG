@@ -7,6 +7,7 @@ Compatibility patches for Create: Big Cannons and Create: Breaking Bad for Terra
 VERSION 1.0.1
 * Updated to TFG 0.12.3a
 * Fixed error on pattern for Mold recipes for Create Big Cannons
++ Added recipe for [Steel Screw Lock] on assembler lv.
 
 VERSION 1.0.0
 * Fixed sequencied [Big Cartige] recipe.
