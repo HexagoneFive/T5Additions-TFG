@@ -204,12 +204,12 @@ const registerCBCRecipes = (event) => {
 
     // Packed Gunpowder
     event.recipes.greate.pressing('createbigcannons:packed_gunpowder', '3x #forge:gunpowder')
-        .recipeTier(1)
+        .recipeTier(0)
         .id("t5a:cbc/pressing/packed_gunpowder")
     event.recipes.gtceu.forge_hammer("t5a:cbc/forge_hammer/packed_gunpowder")
         .itemInputs('3x #forge:gunpowder')
         .itemOutputs('createbigcannons:packed_gunpowder')
-        .EUt(GTValues.VA[GTValues.LV])
+        .EUt(GTValues.VA[GTValues.ULV])
         .duration(30)
 
 
