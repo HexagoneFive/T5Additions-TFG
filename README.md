@@ -4,6 +4,11 @@
 Compatibility patches for Create: Big Cannons and Create: Breaking Bad for TerrafirmaGreg [404] Server
 
 # Changelog
+VERSION 1.0.1
+* Updated to TFG 0.12.3a
+* Fixed error on pattern for Mold recipes for Create Big Cannons
+
+VERSION 1.0.0
 * Fixed sequencied [Big Cartige] recipe.
 * Changed recipe of [Nitro] now requires 5x[Nitroguanidine] + 2000mb[Glyceryl Trinitrate] + 3x[Nitrocellulose]
 + Added item [Calcium Carbide]
