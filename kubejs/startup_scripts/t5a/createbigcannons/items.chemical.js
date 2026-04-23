@@ -1,4 +1,4 @@
-// priority: 0
+// priority: 2
 "use strict";
 
 
@@ -6,7 +6,7 @@
  * 
  * @param {Registry.Item} event 
  */
-const registerCBCItems = (event)=>{
+global.registerCBCItems = (event)=>{
     event.create("t5a:calcium_carbide").displayName("Calcium Carbide").texture('t5a:item/calcium_carbide').maxStackSize(64)
     event.create("t5a:calcium_cyanamide").displayName("Calcium Cyanamide").texture('t5a:item/calcium_cyanamide').maxStackSize(64)
     event.create("t5a:ammonium_nitrate").displayName("Ammonium Nitrate").texture('t5a:item/ammonium_nitrate').maxStackSize(64)

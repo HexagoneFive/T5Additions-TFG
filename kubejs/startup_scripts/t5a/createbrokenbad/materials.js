@@ -1,5 +1,5 @@
-// priority: 0
+// priority: 2
 "use strict";
 
-const registerCBBMaterials = (event)=>{
+global.registerCBBMaterials = (event)=>{
 }

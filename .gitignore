@@ -214,6 +214,9 @@ sync.*
 # Custom
 deploy.sh
 sync.js
+commands.js
+hardcore_lives.js
 probe/
 jsconfig.json
+replacer.py
 >>>>>>> master

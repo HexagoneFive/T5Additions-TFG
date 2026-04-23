@@ -19,9 +19,16 @@ const CBC_DISABLED_ITEMS = [
     'createbigcannons:hardened_nitro',
     'createbigcannons:congealed_nitro'
 ]
+/**
+ * 
+ * @param {TagEvent.Item} event 
+ */
 const registerCreateBigCannonsItemTags = (event) => {
     
-
+    /**
+ * 
+ * @param {TagEvent.Item} event 
+ */
     const disableItem = (item) => {
         event.removeAllTagsFrom(item)
         event.add('c:hidden_from_recipe_viewers', item)

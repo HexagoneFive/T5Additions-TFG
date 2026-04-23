@@ -4,6 +4,15 @@
 Compatibility patches for Create: Big Cannons and Create: Breaking Bad for TerrafirmaGreg [404] Server
 
 # Changelog
+VERSION 1.0.2
+* Updated to TFG 0.12.5
+* Fixed recipe for [Worm Head]
+* Fixed recipe for [Screw Breech] on assembler
+* Fixed lootable for cannon blocks
+- Removed recipe for [Cannon Built Up]
+- Removed block [Cannon Builder]
++ Added recipe for welding cannon layers to replace cannon built-up
+
 VERSION 1.0.1
 * Updated to TFG 0.12.3a
 * Fixed error on pattern for Mold recipes for Create Big Cannons

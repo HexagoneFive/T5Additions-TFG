@@ -1,7 +1,7 @@
-// priority: 0
+// priority: 2
 "use strict";
 
-const registerCBCMaterials = (event)=>{
+global.registerCBCMaterials = (event)=>{
     event.create("t5a:calcium_carbide")
         .dust()
         .components('1x calcium', '2x carbon')

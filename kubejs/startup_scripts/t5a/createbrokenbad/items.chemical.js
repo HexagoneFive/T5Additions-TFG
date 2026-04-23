@@ -1,4 +1,4 @@
-// priority: 0
+// priority: 2
 "use strict";
 
 
@@ -6,5 +6,5 @@
  * 
  * @param {Registry.Item} event 
  */
-const registerCBBItems = (event)=>{
+global.registerCBBItems = (event)=>{
 }
